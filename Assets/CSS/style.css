@@ -1,0 +1,43 @@
+/* sets styling for entire page */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* sets styling for body of page; wanted things to wrap down in a column */
+body {
+    flex-flow: column;
+    line-height: 1.5;
+}
+
+/* sets margin for all h elements */
+h1
+h2
+h3
+h4
+h5
+h6 {
+    margin: 0;
+}
+
+/* sets margin for all p elements */
+p {
+    margin: 0;
+}
+
+header {
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-flow: row;
+}
+
+.search {
+    display: flex;
+    flex-flow: column;
+    
+}
+
