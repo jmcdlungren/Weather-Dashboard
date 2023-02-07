@@ -9,10 +9,7 @@ $(".btn").on("click", function (event) {
     event.preventDefault();
     var city = $("input").val();
     var oneDay = $(".one-day");
-    var cityName = $("#city-name");
-    var currentTemp = $("#current-temp");
-    var wind = $("#wind");
-    var humidity = $("#humidity");
+    
 
     
 
@@ -23,7 +20,10 @@ $(".btn").on("click", function (event) {
         })
         .then(data => {
             console.log(data)
-            
+            var cityName = $("#city-name");
+            var currentTemp = $("#current-temp");
+            var wind = $("#wind");
+            var humidity = $("#humidity");
             
             
             $(oneDay).removeClass("d-none");
