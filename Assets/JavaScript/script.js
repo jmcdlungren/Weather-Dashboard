@@ -13,7 +13,7 @@ $(".btn").on("click", function (event) {
     var memory = $(".memory");
 
     var WeatherAPI = "1453cb68cafdfe7161851616395bc88b";
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + WeatherAPI;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + WeatherAPI + "&units=" + "imperial";
     fetch(queryURL).then(res => {
             return res.json()
         })
