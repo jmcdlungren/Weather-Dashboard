@@ -9,7 +9,10 @@ $(".btn").on("click", function (event) {
     event.preventDefault();
     var city = $("input").val();
     var oneDay = $(".one-day");
-    var memory = $(".memory");
+    var cityName = $("#city-name");
+    var currentTemp = $("#current-temp");
+    var wind = $("#wind");
+    var humidity = $("#humidity");
 
     
 
@@ -21,10 +24,7 @@ $(".btn").on("click", function (event) {
         .then(data => {
             console.log(data)
             
-            var cityName = $("#city-name");
-            var currentTemp = $("#current-temp");
-            var wind = $("#wind");
-            var humidity = $("#humidity");
+            
             
             $(oneDay).removeClass("d-none");
 
@@ -35,9 +35,14 @@ $(".btn").on("click", function (event) {
         })
         .catch(error => console.log('ERROR'))
 
+
+    var memory = $(".memory");
+    var recentSearch = document.createElement('li');
+    memory.append(recentSearch);
+
     localStorage.setItem("recent", city);
     var recent = localStorage.getItem("recent")
-    memory.textContent = recent;
+    recentSearch.textContent = recent;
 
 
 
