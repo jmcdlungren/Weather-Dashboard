@@ -2,39 +2,56 @@
 
 // var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + WeatherAPI;
 
+var city = $("input").val();
 
-// fetch(queryURL)
 
 $(".btn").on("click", function (event) {
     event.preventDefault();
     var city = $("input").val();
     var oneDay = $(".one-day");
-    
 
-    
+
+
 
     var WeatherAPI = "1453cb68cafdfe7161851616395bc88b";
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + WeatherAPI + "&units=" + "imperial";
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + WeatherAPI + "&units=" + "imperial";
     fetch(queryURL).then(res => {
-            return res.json()
-        })
+        return res.json()
+    })
         .then(data => {
             console.log(data)
             var cityName = $("#city-name");
             var currentTemp = $("#current-temp");
             var wind = $("#wind");
             var humidity = $("#humidity");
-            
-            
-            $(oneDay).removeClass("d-none");
+            var today = dayjs().format('M/D/YYYY');
 
-            cityName.text(data.name)
+            oneDay.removeClass("d-none");
+
+            cityName.text(data.name + " (" + today + ")") 
             currentTemp.text(data.main.temp + "°F")
             wind.text(data.wind.speed + " mph")
             humidity.text(data.main.humidity + "%")
+
+            var lat = (data.coord.lat);
+            var lon = (data.coord.lon);
+            var fiveDay = "https://api.openweathermap.org/data/2.5/forecast?" + "lat=" + lat + "&lon=" + lon + "&appid=" + WeatherAPI + "&units=" + "imperial";
+
+            return fetch(fiveDay).then(res => {
+                return res.json()
+            })
+                .then(data => {
+                    console.log(data);
+                })
+
         })
         .catch(error => console.log('ERROR'))
+    
+        
 
+
+  
+    
 
     var memory = $(".memory");
     var recentSearch = document.createElement('li');
@@ -49,17 +66,3 @@ $(".btn").on("click", function (event) {
 });
 
 
-
-
-// $(".btn").on("click", function getCity() {
-//     var description = $(this).siblings(".description").val();
-//     var hour = $(this).parent().attr("id");
-//     console.log(description);
-//     localStorage.setItem(hour, description);
-//   });
-
-//   // Sets function for whenever the page is refreshed. The local storage will then be retrieved and applied to the text box it was saved in above.
-//   for (i = 9; i <= 17; i++) {
-//     var data = localStorage.getItem("hour-" + i)
-//     $("#hour-" + i).children(".description").val(data)
-//   };
