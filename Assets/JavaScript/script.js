@@ -54,7 +54,7 @@ $(".btn").on("click", function (event) {
     
 
     var memory = $(".memory");
-    var recentSearch = document.createElement('li');
+    var recentSearch = document.createElement('button');
     memory.append(recentSearch);
 
     localStorage.setItem("recent", city);
