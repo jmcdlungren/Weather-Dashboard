@@ -27,7 +27,8 @@ $(".btn").on("click", function (event) {
             var wind = $("#wind");
             var humidity = $("#humidity");
             var baseDay = dayjs().format('D')
-            var today = dayjs().format('M/' + baseDay + '/YYYY');
+            var startDay = Number(baseDay);
+            var today = dayjs().format('M/' + startDay + '/YYYY');
             
 
             // oneDay.removeClass("d-none");
@@ -60,8 +61,7 @@ $(".btn").on("click", function (event) {
                     var windOne = $("#wind-1");
                     var humidityOne = $("#humidity-1");
 
-
-                    var dayOneBase = baseDay++
+                    var dayOneBase = startDay + 1
                     dayOne.text(dayjs().format('M/' + dayOneBase + '/YYYY'));
                     iconOne.append('<img src=' + iconOneSrc + '>')
                     tempOne.text(data.list[7].main.temp + "°F")
@@ -75,7 +75,7 @@ $(".btn").on("click", function (event) {
                     var windTwo = $("#wind-2");
                     var humidityTwo = $("#humidity-2");
 
-                    var dayTwoBase = baseDay++
+                    var dayTwoBase = dayOneBase + 1
                     dayTwo.text(dayjs().format('M/' + dayTwoBase + '/YYYY'));
                     iconTwo.append('<img src=' + iconTwoSrc + '>')
                     tempTwo.text(data.list[15].main.temp + "°F")
@@ -89,7 +89,7 @@ $(".btn").on("click", function (event) {
                     var windThree = $("#wind-3");
                     var humidityThree = $("#humidity-3");
 
-                    var dayThreeBase = baseDay++
+                    var dayThreeBase = dayTwoBase + 1
                     dayThree.text(dayjs().format('M/' + dayThreeBase + '/YYYY'));
                     iconThree.append('<img src=' + iconThreeSrc + '>')
                     tempThree.text(data.list[23].main.temp + "°F")
@@ -103,7 +103,7 @@ $(".btn").on("click", function (event) {
                     var windFour = $("#wind-4");
                     var humidityFour = $("#humidity-4");
 
-                    var dayFourBase = baseDay++
+                    var dayFourBase = dayThreeBase + 1
                     dayFour.text(dayjs().format('M/' + dayFourBase + '/YYYY'));
                     iconFour.append('<img src=' + iconFourSrc + '>')
                     tempFour.text(data.list[31].main.temp + "°F")
@@ -117,7 +117,7 @@ $(".btn").on("click", function (event) {
                     var windFive = $("#wind-5");
                     var humidityFive = $("#humidity-5");
 
-                    var dayFiveBase = baseDay++
+                    var dayFiveBase = dayFourBase + 1
                     dayFive.text(dayjs().format('M/' + dayFiveBase + '/YYYY'));
                     iconFive.append('<img src=' + iconFiveSrc + '>')
                     tempFive.text(data.list[39].main.temp + "°F")
