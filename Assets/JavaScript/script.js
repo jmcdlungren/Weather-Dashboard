@@ -2,12 +2,9 @@
 
 // var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + WeatherAPI;
 
-var city = $("input").val();
-
-
-$(".btn").on("click", function (event) {
-    event.preventDefault();
-    var city = $("input").val();
+function getWeather(cityInput) {
+    var city = $("input").val() || cityInput
+    saveCity()
     var oneDay = $(".one-day");
 
 
@@ -29,11 +26,12 @@ $(".btn").on("click", function (event) {
             var baseDay = dayjs().format('D')
             var startDay = Number(baseDay);
             var today = dayjs().format('M/' + startDay + '/YYYY');
-            
+
 
             oneDay.removeClass("d-none");
 
             cityName.text(data.name + " (" + today + ") ")
+            icon.text("")
             icon.append('<img src=' + iconSrc + '>')
             currentTemp.text(data.main.temp + "°F")
             wind.text(data.wind.speed + " mph")
@@ -51,7 +49,7 @@ $(".btn").on("click", function (event) {
 
                     var fiveForecast = $(".five-forecast");
 
-                    
+
                     fiveForecast.removeClass("d-none");
 
                     var dayOne = $("#date-1");
@@ -63,6 +61,7 @@ $(".btn").on("click", function (event) {
 
                     var dayOneBase = startDay + 1
                     dayOne.text(dayjs().format('M/' + dayOneBase + '/YYYY'));
+                    iconOne.text("")
                     iconOne.append('<img src=' + iconOneSrc + '>')
                     tempOne.text(data.list[7].main.temp + "°F")
                     windOne.text(data.list[7].wind.speed + " mph")
@@ -77,6 +76,7 @@ $(".btn").on("click", function (event) {
 
                     var dayTwoBase = dayOneBase + 1
                     dayTwo.text(dayjs().format('M/' + dayTwoBase + '/YYYY'));
+                    iconTwo.text("")
                     iconTwo.append('<img src=' + iconTwoSrc + '>')
                     tempTwo.text(data.list[15].main.temp + "°F")
                     windTwo.text(data.list[15].wind.speed + " mph")
@@ -91,6 +91,7 @@ $(".btn").on("click", function (event) {
 
                     var dayThreeBase = dayTwoBase + 1
                     dayThree.text(dayjs().format('M/' + dayThreeBase + '/YYYY'));
+                    iconThree.text("")
                     iconThree.append('<img src=' + iconThreeSrc + '>')
                     tempThree.text(data.list[23].main.temp + "°F")
                     windThree.text(data.list[23].wind.speed + " mph")
@@ -105,6 +106,7 @@ $(".btn").on("click", function (event) {
 
                     var dayFourBase = dayThreeBase + 1
                     dayFour.text(dayjs().format('M/' + dayFourBase + '/YYYY'));
+                    iconFour.text("")
                     iconFour.append('<img src=' + iconFourSrc + '>')
                     tempFour.text(data.list[31].main.temp + "°F")
                     windFour.text(data.list[31].wind.speed + " mph")
@@ -119,12 +121,14 @@ $(".btn").on("click", function (event) {
 
                     var dayFiveBase = dayFourBase + 1
                     dayFive.text(dayjs().format('M/' + dayFiveBase + '/YYYY'));
+                    iconFive.text("")
                     iconFive.append('<img src=' + iconFiveSrc + '>')
                     tempFive.text(data.list[39].main.temp + "°F")
                     windFive.text(data.list[39].wind.speed + " mph")
                     humidityFive.text(data.list[39].main.humidity + "%")
 
                     console.log(baseDay++)
+                    renderHistory()
 
 
 
@@ -132,25 +136,34 @@ $(".btn").on("click", function (event) {
 
         })
         .catch(error => console.log('ERROR'))
-    
-        
+}
 
 
-  
-    
+$(".search-btn").on("click", getWeather)
 
+function saveCity() {
+    var searchHistory = JSON.parse(localStorage.getItem("recent")) || []
+    searchHistory.push($("input").val())
+    localStorage.setItem("recent", JSON.stringify(searchHistory))
+}
+
+function historySearch() {
+    console.log(this.dataset.city)
+    getWeather(this.dataset.city)
+}
+
+function renderHistory() {
     var memory = $(".memory");
-    var recentSearch = document.createElement('button');
-    recentSearch.classList.add('btn', 'border', 'border-2', 'ps-5', 'pe-5', 'pt-2', 'pb-2', 'm-2', "recent-search")
+    var history = JSON.parse(localStorage.getItem("recent")) || []
+    for (i = 0; i < history.length; i++) {
+        var recentSearch = document.createElement('button');
+        recentSearch.classList.add('btn', 'border', 'border-2', 'ps-5', 'pe-5', 'pt-2', 'pb-2', 'm-2', 'recent-search')
+        recentSearch.setAttribute('data-city', history[i])
+        
+        recentSearch.textContent = history[i]
+        recentSearch.addEventListener("click", historySearch)
+        memory.append(recentSearch);
+    }
+}
 
-    memory.append(recentSearch);
-
-    localStorage.setItem("recent", city);
-    var recent = localStorage.getItem("recent")
-    recentSearch.textContent = recent;
-    console.log(typeof city)
-
-
-});
-
-
+renderHistory();
