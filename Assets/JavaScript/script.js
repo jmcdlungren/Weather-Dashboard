@@ -31,7 +31,7 @@ $(".btn").on("click", function (event) {
             var today = dayjs().format('M/' + startDay + '/YYYY');
             
 
-            // oneDay.removeClass("d-none");
+            oneDay.removeClass("d-none");
 
             cityName.text(data.name + " (" + today + ") ")
             icon.append('<img src=' + iconSrc + '>')
@@ -49,10 +49,10 @@ $(".btn").on("click", function (event) {
                 .then(data => {
                     console.log(data);
 
-                    var fiveForcast = $(".five-forcast");
+                    var fiveForecast = $(".five-forecast");
 
                     
-                    // fiveForcast.removeClass("d-none");
+                    fiveForecast.removeClass("d-none");
 
                     var dayOne = $("#date-1");
                     var iconOne = $("#emoji-1");
@@ -141,13 +141,14 @@ $(".btn").on("click", function (event) {
 
     var memory = $(".memory");
     var recentSearch = document.createElement('button');
-    recentSearch.classList.add('ps-5', 'pe-5', 'pt-2', 'pb-2', 'm-2')
+    recentSearch.classList.add('btn', 'border', 'border-2', 'ps-5', 'pe-5', 'pt-2', 'pb-2', 'm-2', "recent-search")
+
     memory.append(recentSearch);
 
     localStorage.setItem("recent", city);
     var recent = localStorage.getItem("recent")
     recentSearch.textContent = recent;
-
+    console.log(typeof city)
 
 
 });
