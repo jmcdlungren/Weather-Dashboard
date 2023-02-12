@@ -127,7 +127,7 @@ function getWeather(cityInput) {
                     windFive.text(data.list[39].wind.speed + " mph")
                     humidityFive.text(data.list[39].main.humidity + "%")
 
-                    console.log(baseDay++)
+
                     renderHistory()
 
 
@@ -150,19 +150,26 @@ function saveCity() {
 function historySearch() {
     console.log(this.dataset.city)
     getWeather(this.dataset.city)
+
 }
 
 function renderHistory() {
+
     var memory = $(".memory");
     var history = JSON.parse(localStorage.getItem("recent")) || []
     for (i = 0; i < history.length; i++) {
         var recentSearch = document.createElement('button');
-        recentSearch.classList.add('btn', 'border', 'border-2', 'ps-5', 'pe-5', 'pt-2', 'pb-2', 'm-2', 'recent-search')
+        recentSearch.classList.add('btn', 'border', 'border-2', 'ps-6', 'pe-6', 'pt-2', 'pb-2', 'mt-1', 'recent-search')
         recentSearch.setAttribute('data-city', history[i])
+
+
         
-        recentSearch.textContent = history[i]
-        recentSearch.addEventListener("click", historySearch)
-        memory.append(recentSearch);
+
+        if (recentSearch.textContent = history[i]) {
+            memory.append(recentSearch);
+            recentSearch.addEventListener("click", historySearch)
+
+        }
     }
 }
 

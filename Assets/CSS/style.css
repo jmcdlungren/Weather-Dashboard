@@ -41,7 +41,11 @@ main {
     
 }
 
+.memory {
+    
+}
+
 .recent-search {
-    width: max-content;
+    width: 100%;
 }
 
