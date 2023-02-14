@@ -10,7 +10,7 @@ Screenshots as follows:
 
 
 
-[Work Day Scheduler Webpage](https://jmcdlungren.github.io/Weather-Dashboard/)
+[Weather Dashboard Webpage](https://jmcdlungren.github.io/Weather-Dashboard/)
 
 [GitHub Repository Link](https://github.com/jmcdlungren/Weather-Dashboard)
 
