@@ -1,6 +1,7 @@
-// var WeatherAPI = "1453cb68cafdfe7161851616395bc88b";
 
-// var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + WeatherAPI;
+var searchHistory = JSON.parse(localStorage.getItem("recent")) || []
+
+
 
 function getWeather(cityInput) {
     var city = $("input").val() || cityInput
@@ -129,7 +130,7 @@ function getWeather(cityInput) {
 
 
                     renderHistory()
-
+                    
 
 
                 })
@@ -139,16 +140,24 @@ function getWeather(cityInput) {
 }
 
 
-$(".search-btn").on("click", getWeather)
+$(".search-btn").on("click", function() {
+    getWeather()
+    $("input").val("")
+})
+
+
 
 function saveCity() {
-    var searchHistory = JSON.parse(localStorage.getItem("recent")) || []
+    // var searchHistory = JSON.parse(localStorage.getItem("recent")) || []
+    console.log(searchHistory)
     searchHistory.push($("input").val())
     localStorage.setItem("recent", JSON.stringify(searchHistory))
+    // renderHistory()
 }
 
 function historySearch() {
     console.log(this.dataset.city)
+    
     getWeather(this.dataset.city)
 
 }
@@ -156,20 +165,25 @@ function historySearch() {
 function renderHistory() {
 
     var memory = $(".memory");
-    var history = JSON.parse(localStorage.getItem("recent")) || []
-    for (i = 0; i < history.length; i++) {
+    var modifiedHistory = [...new Set(searchHistory)]
+    // var history = JSON.parse(localStorage.getItem("recent")) || []
+    memory.text("")
+    for (i = 0; i < searchHistory.length; i++) {
         var recentSearch = document.createElement('button');
+        
         recentSearch.classList.add('btn', 'border', 'border-2', 'ps-6', 'pe-6', 'pt-2', 'pb-2', 'mt-1', 'recent-search')
-        recentSearch.setAttribute('data-city', history[i])
-
+        recentSearch.setAttribute('data-city', modifiedHistory[i])
+        recentSearch.addEventListener("click", historySearch)
 
         
-
-        if (recentSearch.textContent = history[i]) {
-            memory.append(recentSearch);
-            recentSearch.addEventListener("click", historySearch)
-
+        
+        
+        if(recentSearch.textContent = modifiedHistory[i]) {
+           memory.append(recentSearch);
         }
+       
+
+        
     }
 }
 
